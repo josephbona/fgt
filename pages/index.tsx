@@ -12,6 +12,7 @@ interface HomeProps {
 }
 
 export default function Home({ products }: HomeProps) {
+  if (!products) return null
   return (
     <Layout transparentHeader>
       <Head>
@@ -35,15 +36,15 @@ export default function Home({ products }: HomeProps) {
   )
 }
 
-export async function getServerSideProps() {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/products?limit=8`
-  )
-  const products = await response.json()
+// export async function getServerSideProps() {
+//   const response = await fetch(
+//     `${process.env.NEXT_PUBLIC_API_URL}/api/products?limit=8`
+//   )
+//   const products = await response.json()
 
-  return {
-    props: {
-      products,
-    },
-  }
-}
+//   return {
+//     props: {
+//       products,
+//     },
+//   }
+// }

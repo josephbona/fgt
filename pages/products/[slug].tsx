@@ -22,6 +22,8 @@ const ProductPage = ({ product }: Props) => {
     return <div>Loading...</div>
   }
 
+  if (!product) return null
+
   async function handleSubmit(e) {
     e.preventDefault()
     const formData = new FormData(e.target)
@@ -93,41 +95,41 @@ const ProductPage = ({ product }: Props) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const slug = params?.slug as string
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/products/${slug}`
-  )
-  const product = await response.json()
+// export const getStaticProps: GetStaticProps = async ({ params }) => {
+//   const slug = params?.slug as string
+//   const response = await fetch(
+//     `${process.env.NEXT_PUBLIC_API_URL}/api/products/${slug}`
+//   )
+//   const product = await response.json()
 
-  if (!product) {
-    return {
-      notFound: true,
-    }
-  }
+//   if (!product) {
+//     return {
+//       notFound: true,
+//     }
+//   }
 
-  return {
-    props: {
-      product,
-    },
-    revalidate: 60, // regenerate the page every 60 seconds (1 minute) on the server
-  }
-}
+//   return {
+//     props: {
+//       product,
+//     },
+//     revalidate: 60, // regenerate the page every 60 seconds (1 minute) on the server
+//   }
+// }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/products`
-  )
-  const products = await response.json()
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const response = await fetch(
+//     `${process.env.NEXT_PUBLIC_API_URL}/api/products`
+//   )
+//   const products = await response.json()
 
-  const paths = products.map((product: Product) => ({
-    params: { slug: slugify(product.title) },
-  }))
+//   const paths = products.map((product: Product) => ({
+//     params: { slug: slugify(product.title) },
+//   }))
 
-  return {
-    paths,
-    fallback: true, // show fallback page for uncached paths
-  }
-}
+//   return {
+//     paths,
+//     fallback: true, // show fallback page for uncached paths
+//   }
+// }
 
 export default ProductPage
