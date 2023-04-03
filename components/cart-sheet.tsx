@@ -1,8 +1,6 @@
 import { useCartStore } from "@/store"
 
-import { formatCurrency } from "@/lib/utils"
 import { Cart, CartSummary, FreeShippingProgress } from "@/components/cart"
-import { Button } from "@/components/ui/button"
 import {
   Sheet,
   SheetContent,
@@ -10,8 +8,6 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet"
-import { Progress } from "./ui/progress"
-import { FREE_SHIPPING_THRESHOLD } from "@/lib/constants"
 
 export function CartSheet() {
   const cartStore = useCartStore()

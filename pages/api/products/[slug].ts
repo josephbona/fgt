@@ -1,16 +1,15 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { HandlerResponse, Product } from "@/types"
-import { slugify } from "@/lib/utils"
 
-const API_URL =
-  "https://take-home-challenge.s3.amazonaws.com/challenge/FGT-Frontend-Take-Home.json"
+import { EXTERNAL_API_URL } from "@/lib/constants"
+import { slugify } from "@/lib/utils"
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<HandlerResponse<Product>>
 ) {
   try {
-    const response = await fetch(API_URL)
+    const response = await fetch(EXTERNAL_API_URL)
     const { products } = await response.json()
 
     const slug = req.query.slug as string

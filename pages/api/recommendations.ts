@@ -2,16 +2,15 @@ import { NextApiRequest, NextApiResponse } from "next"
 import { HandlerResponse } from "@/types"
 
 import { Product } from "@/types/product"
+import { EXTERNAL_API_URL } from "@/lib/constants"
 
-const API_URL =
-  "https://take-home-challenge.s3.amazonaws.com/challenge/FGT-Frontend-Take-Home.json"
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<HandlerResponse<Product[]>>
 ) {
   if (req.method === "GET") {
     try {
-      const response = await fetch(API_URL)
+      const response = await fetch(EXTERNAL_API_URL)
       const { recommendations } = await response.json()
 
       // TODO: Do custom logic here. Maybe support a cart body to do the logic?

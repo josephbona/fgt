@@ -1,5 +1,5 @@
-import { default as _slugify } from 'slugify'
 import { ClassValue, clsx } from "clsx"
+import { default as _slugify } from "slugify"
 import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs: ClassValue[]) {
@@ -9,10 +9,10 @@ export function cn(...inputs: ClassValue[]) {
 export function slugify(input: string) {
   return _slugify(input, {
     lower: true,
-    trim: true
+    trim: true,
   })
 }
 
 export function formatCurrency(amount: string | number) {
-  return amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+  return amount.toLocaleString("en-US", { style: "currency", currency: "USD" })
 }

@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { Product } from "@/types"
+
 import { slugify } from "@/lib/utils"
 
 export function ProductCard(props: { product: Product }) {

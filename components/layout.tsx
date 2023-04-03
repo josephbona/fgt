@@ -1,6 +1,7 @@
+import { useCartStore } from "@/store"
+
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
-import { useCartStore } from "@/store"
 import { CartSheet } from "./cart-sheet"
 
 interface LayoutProps {

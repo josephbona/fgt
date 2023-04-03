@@ -1,5 +1,6 @@
-import { Product, ProductQueryParams } from "@/types";
-import { slugify } from "../utils";
+import { Product, ProductQueryParams } from "@/types"
+
+import { slugify } from "../utils"
 
 export function filterProductsByQueryParams(
   products: Product[],

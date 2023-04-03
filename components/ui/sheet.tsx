@@ -185,13 +185,7 @@ const SheetFooter = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={cn(
-      "block",
-      className
-    )}
-    {...props}
-  />
+  <div className={cn("block", className)} {...props} />
 )
 SheetFooter.displayName = "SheetFooter"
 

@@ -25,7 +25,7 @@ const ProductPage = ({ product }: Props) => {
   async function handleSubmit(e) {
     e.preventDefault()
     const formData = new FormData(e.target)
-    const quantity = formData.get('quantity')
+    const quantity = formData.get("quantity")
     const lineItem = { product, quantity: Number(quantity) }
     cartStore.addToCart(lineItem)
     cartStore.toggleIsOpen()
@@ -79,7 +79,7 @@ const ProductPage = ({ product }: Props) => {
                 <p>{product.body}</p>
               </div>
               <form className="mt-8" onSubmit={handleSubmit}>
-                <input name="quantity" type="hidden" value='1' />
+                <input name="quantity" type="hidden" value="1" />
                 <Button type="submit" className="w-full">
                   Add to cart
                 </Button>
