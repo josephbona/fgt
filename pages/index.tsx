@@ -13,7 +13,7 @@ interface HomeProps {
 
 export default function Home({ products }: HomeProps) {
   return (
-    <Layout>
+    <Layout transparentHeader>
       <Head>
         <title>My Next.js App</title>
         <link rel="icon" href="/favicon.ico" />
@@ -37,9 +37,7 @@ export default function Home({ products }: HomeProps) {
 
 export async function getServerSideProps() {
   const response = await fetch(
-    `${
-      process.env.NEXT_PUBLIC_API_URL || "http://0.0.0.0:3000"
-    }/api/products?limit=8`
+    `${process.env.NEXT_PUBLIC_API_URL}/api/products?limit=8`
   )
   const products = await response.json()
 

@@ -42,7 +42,7 @@ export function HeroProductImage(props: { product: Product }) {
 export function Hero(props: { products: Product[] }) {
   return (
     <div className="relative overflow-hidden bg-green-50">
-      <div className="lg:pb-42 pb-80 pt-28 sm:py-40 lg:pt-56">
+      <div className="lg:pb-42 pb-80 pt-28 sm:py-40 lg:pt-64">
         <div className="container relative px-4 sm:static">
           <div className="sm:max-w-lg">
             {/* <SocialProof /> */}

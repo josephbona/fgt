@@ -4,10 +4,18 @@ import { ShoppingCart } from "lucide-react"
 
 import { siteConfig } from "@/config/site"
 import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
-export function SiteHeader() {
+export function SiteHeader(props: { transparent: boolean }) {
   return (
-    <header className="fixed top-0 z-40 w-full bg-transparent">
+    <header
+      className={cn(
+        props.transparent
+          ? "absolute bg-transparent"
+          : "sticky bg-white border-b border-gray-200",
+        "top-0 z-40 w-full"
+      )}
+    >
       <div className="container flex h-16 items-center justify-between">
         <div className="flex">
           <Link href="/">
