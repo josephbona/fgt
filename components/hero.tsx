@@ -2,7 +2,9 @@ import Image from "next/image"
 import Link from "next/link"
 import { Product } from "@/types"
 import { StarIcon } from "lucide-react"
+
 import { slugify } from "@/lib/utils"
+import { buttonVariants } from "@/components/ui/button"
 
 function SocialProof() {
   return (
@@ -43,10 +45,10 @@ export function Hero(props: { products: Product[] }) {
   return (
     <div className="relative overflow-hidden bg-green-50">
       <div className="lg:pb-42 pb-80 pt-28 sm:py-40 lg:pt-64">
-        <div className="container relative px-4 sm:static">
+        <div className="container relative z-10 px-4 sm:static">
           <div className="sm:max-w-lg">
             {/* <SocialProof /> */}
-            <h1 className="font text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+            <h1 className="font text-4xl font-bold tracking-tight text-green-900 sm:text-5xl">
               Trees & plants, directly to your door.
             </h1>
             <p className="mt-4 text-xl text-gray-700">
@@ -80,13 +82,16 @@ export function Hero(props: { products: Product[] }) {
                   </div>
                 </div>
               </div>
-
-              <a
-                href="#"
-                className="inline-block rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-center font-medium text-white hover:bg-indigo-700"
+              <Link
+                href="/collections/all"
+                className={buttonVariants({
+                  size: "lg",
+                  variant: "default",
+                  className: "relative z-10",
+                })}
               >
                 Shop Collection
-              </a>
+              </Link>
             </div>
           </div>
         </div>

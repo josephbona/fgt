@@ -12,3 +12,7 @@ export function slugify(input: string) {
     trim: true
   })
 }
+
+export function formatCurrency(amount: string | number) {
+  return amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+}

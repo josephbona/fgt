@@ -2,11 +2,13 @@ import { CSSProperties } from "react"
 import { GetStaticPaths, GetStaticProps } from "next"
 import Image from "next/image"
 import { useRouter } from "next/router"
+import { useCartStore } from "@/store"
 import { Product } from "@/types"
 
 import { cn, slugify } from "@/lib/utils"
 import { Layout } from "@/components/layout"
 import { Offers } from "@/components/offers"
+import { Button } from "@/components/ui/button"
 
 type Props = {
   product: Product
@@ -14,17 +16,24 @@ type Props = {
 
 const ProductPage = ({ product }: Props) => {
   const router = useRouter()
+  const cartStore = useCartStore()
 
   if (router.isFallback) {
     return <div>Loading...</div>
   }
 
+  async function handleSubmit(e) {
+    e.preventDefault()
+    const formData = new FormData(e.target)
+    const quantity = formData.get('quantity')
+    const lineItem = { product, quantity: Number(quantity) }
+    cartStore.addToCart(lineItem)
+    cartStore.toggleIsOpen()
+  }
+
   return (
     <Layout>
-      <div className="hidden lg:block">
-        <Offers />
-      </div>
-      <div className="container py-4 lg:py-16">
+      <div className="container pt-6 pb-16 lg:py-16">
         <div className="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8">
           <div className="lg:col-span-6 lg:col-start-7">
             <div className="flex items-center justify-between">
@@ -69,13 +78,17 @@ const ProductPage = ({ product }: Props) => {
               <div className="prose prose-sm text-gray-500 ">
                 <p>{product.body}</p>
               </div>
+              <form className="mt-8" onSubmit={handleSubmit}>
+                <input name="quantity" type="hidden" value='1' />
+                <Button type="submit" className="w-full">
+                  Add to cart
+                </Button>
+              </form>
             </div>
           </div>
         </div>
       </div>
-      <div className="block lg:hidden">
-        <Offers />
-      </div>
+      <Offers />
     </Layout>
   )
 }
