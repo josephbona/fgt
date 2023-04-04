@@ -1,11 +1,12 @@
 import Image from "next/image"
 import { useCartStore } from "@/store"
 
-import { formatCurrency, slugify } from "@/lib/utils"
-import { LineItem } from "@/types"
+import { filterUpsells, formatCurrency, slugify } from "@/lib/utils"
+import { LineItem, Product } from "@/types"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { FREE_SHIPPING_THRESHOLD } from "@/lib/constants"
+import Link from "next/link"
 
 export function FreeShippingProgress({ value = 0 }: { value: number }) {
   const amountRemaining = FREE_SHIPPING_THRESHOLD - value
@@ -33,9 +34,9 @@ export function LineItem({ lineItem }: { lineItem: LineItem }) {
       <div className="ml-4 flex flex-1 flex-col">
         <div className="flex justify-between text-base font-medium text-gray-900">
           <h3>
-            <a href={`/products/${slugify(lineItem.product.title)}`}>
+            <Link href={`/products/${slugify(lineItem.product.title)}`}>
               {lineItem.product.title}
-            </a>
+            </Link>
           </h3>
           <p className="ml-4">${lineItem.product.price}</p>
         </div>
@@ -59,18 +60,19 @@ export function LineItem({ lineItem }: { lineItem: LineItem }) {
 export function Cart() {
   const cartStore = useCartStore()
 
-  if (!cartStore.lineItems.length) {
-    return <>Cart empty</>
-  }
   return (
     <div className="mt-8">
-      <div className="flow-root">
-        <ul role="list" className="-my-6 divide-y divide-gray-200">
-          {cartStore.lineItems.map((lineItem) => (
-            <LineItem key={lineItem.product.id} lineItem={lineItem} />
-          ))}
-        </ul>
-      </div>
+      {!cartStore.lineItems.length ? (
+        <p className="text-center">Nothing in your cart.</p>
+      ) : (
+        <div className="flow-root">
+          <ul role="list" className="-my-6 divide-y divide-gray-200">
+            {cartStore.lineItems.map((lineItem) => (
+              <LineItem key={lineItem.product.id} lineItem={lineItem} />
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   )
 }
@@ -87,6 +89,44 @@ export function CartSummary({ total = 0 }: { total: number }) {
           Checkout
         </Button>
       </div>
+    </div>
+  )
+}
+
+export function CartUpsell({ product }: { product: Product }) {
+  const cartStore = useCartStore()
+  function handleAddUpsell(product) {
+    cartStore.addToCart({ product, quantity: 1 })
+  }
+  return (
+    <li className="flex items-start py-2">
+      <Image
+        src={product.thumbnail.src}
+        alt={product.thumbnail.alt}
+        width={200}
+        height={200}
+        className="h-16 w-16 flex-none rounded-md border border-gray-200"
+      />
+      <div className="ml-4 flex-auto">
+        <h3 className="font-medium text-gray-900">
+          <Link href={`/products/${slugify(product.title)}`}>{product.title}</Link>
+        </h3>
+        <Button size="sm" onClick={() => handleAddUpsell(product)}>Add</Button>
+      </div>
+    </li>
+  )
+}
+
+export function CartUpsells({ products }: { products: Product[] }) {
+  const cartStore = useCartStore()
+  const filteredProducts = filterUpsells({ upsells: products, lineItems: cartStore.lineItems })
+
+  return (
+    <div className="px-4">
+      <h3 className="text-base font-semibold text-slate-900 mb-2">Recommended for you:</h3>
+      <ul role="list" className="divide-y divide-gray-200">
+        {filteredProducts.map((product) => <CartUpsell key={product.id} product={product} />)}
+      </ul>
     </div>
   )
 }
