@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { Product } from "@/types"
 
-import { slugify } from "@/lib/utils"
+import { formatCurrency, slugify } from "@/lib/utils"
 
 export function ProductCard(props: { product: Product }) {
   const { product } = props
@@ -17,7 +17,7 @@ export function ProductCard(props: { product: Product }) {
         />
       </div>
       <h3 className="mt-4 text-sm text-gray-700">{product.title}</h3>
-      <p className="mt-1 text-lg font-medium text-gray-900">${product.price}</p>
+      <p className="mt-1 text-lg font-medium text-gray-900">{formatCurrency(product.price)}</p>
     </a>
   )
 }

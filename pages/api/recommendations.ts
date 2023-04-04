@@ -13,8 +13,6 @@ export default async function handler(
       const response = await fetch(EXTERNAL_API_URL)
       const { recommendations } = await response.json()
 
-      // TODO: Do custom logic here. Maybe support a cart body to do the logic?
-
       res.status(200).json(recommendations)
     } catch (error) {
       res.status(500).json({ message: "Internal Server Error" })

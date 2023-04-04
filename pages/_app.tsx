@@ -18,9 +18,11 @@ const fontSans = FontSans({
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
   const cartStore = useCartStore()
+
   useEffect(() => {
     cartStore.close()
   }, [router.asPath])
+
   return (
     <>
       <DefaultSeo {...SEO} />

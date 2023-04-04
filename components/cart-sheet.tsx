@@ -1,6 +1,13 @@
+import { useEffect, useState } from "react"
 import { useCartStore } from "@/store"
+import { Product } from "@/types"
 
-import { Cart, CartSummary, CartUpsells, FreeShippingProgress } from "@/components/cart"
+import {
+  Cart,
+  CartSummary,
+  CartUpsells,
+  FreeShippingProgress,
+} from "@/components/cart"
 import {
   Sheet,
   SheetContent,
@@ -8,15 +15,15 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet"
-import { useEffect, useState } from "react"
-import { Product } from "@/types"
 
 export function CartSheet() {
   const [recommendations, setRecommendations] = useState<Product[]>([])
   const cartStore = useCartStore()
   useEffect(() => {
     async function fetchRecommendations() {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/recommendations`)
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/recommendations`
+      )
       const products = await response.json()
       setRecommendations(products)
     }

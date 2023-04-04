@@ -1,10 +1,9 @@
-import Head from "next/head"
 import { Product } from "@/types"
+import { NextSeo } from "next-seo"
 
 import { Layout } from "@/components/layout"
 import { Offers } from "@/components/offers"
 import { ProductCard } from "@/components/product-card"
-import { NextSeo } from "next-seo"
 
 interface CollectionProps {
   products: Product[]

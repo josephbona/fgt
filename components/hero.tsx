@@ -70,12 +70,12 @@ export function Hero(props: { products: Product[] }) {
                       ))}
                     </div>
                     <div className="grid shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
-                      {props.products.slice(2, 5).map((product) => (
+                      {props.products.slice(3, 6).map((product) => (
                         <HeroProductImage key={product.id} product={product} />
                       ))}
                     </div>
                     <div className="grid shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
-                      {props.products.slice(5, 7).map((product) => (
+                      {props.products.slice(6, 8).map((product) => (
                         <HeroProductImage key={product.id} product={product} />
                       ))}
                     </div>

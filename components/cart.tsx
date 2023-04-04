@@ -39,7 +39,7 @@ export function LineItem({ lineItem }: { lineItem: LineItem }) {
               {lineItem.product.title}
             </Link>
           </h3>
-          <p className="ml-4">${lineItem.product.price}</p>
+          <p className="ml-4">{formatCurrency(lineItem.product.price)}</p>
         </div>
         <div className="flex flex-1 justify-between text-sm items-end">
           <p className="text-gray-500">Qty {lineItem.quantity}</p>

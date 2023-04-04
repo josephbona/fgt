@@ -6,7 +6,7 @@ import { useCartStore } from "@/store"
 import { Product } from "@/types"
 import { NextSeo, ProductJsonLd } from "next-seo"
 
-import { cn, slugify } from "@/lib/utils"
+import { cn, formatCurrency, slugify } from "@/lib/utils"
 import { Layout } from "@/components/layout"
 import { Offers } from "@/components/offers"
 import { Button } from "@/components/ui/button"
@@ -73,7 +73,7 @@ function ProductPage({ product }: Props) {
                 {product.title}
               </h1>
               <p className="text-xl font-medium text-gray-900">
-                ${product.price}
+                {formatCurrency(product.price)}
               </p>
             </div>
           </div>

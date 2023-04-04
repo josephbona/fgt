@@ -1,8 +1,6 @@
-import { useCartStore } from "@/store"
-
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
-import { CartSheet } from "./cart-sheet"
+import { CartSheet } from "@/components/cart-sheet"
 
 interface LayoutProps {
   children: React.ReactNode
@@ -10,7 +8,6 @@ interface LayoutProps {
 }
 
 export function Layout({ children, transparentHeader }: LayoutProps) {
-  const cartStore = useCartStore()
   return (
     <>
       <SiteHeader transparent={transparentHeader} />
