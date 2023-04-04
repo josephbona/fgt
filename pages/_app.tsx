@@ -5,6 +5,9 @@ import "@/styles/globals.css"
 import { useEffect } from "react"
 import { useRouter } from "next/router"
 import { useCartStore } from "@/store"
+import { DefaultSeo } from "next-seo"
+
+import SEO from "@/config/seo"
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -20,6 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [router.asPath])
   return (
     <>
+      <DefaultSeo {...SEO} />
       <style jsx global>{`
 				:root {
 					--font-sans: ${fontSans.style.fontFamily};

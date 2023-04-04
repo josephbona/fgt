@@ -4,6 +4,7 @@ import Image from "next/image"
 import { useRouter } from "next/router"
 import { useCartStore } from "@/store"
 import { Product } from "@/types"
+import { NextSeo, ProductJsonLd } from "next-seo"
 
 import { cn, slugify } from "@/lib/utils"
 import { Layout } from "@/components/layout"
@@ -14,7 +15,37 @@ type Props = {
   product: Product
 }
 
-const ProductPage = ({ product }: Props) => {
+function ProductHead({ product }: Props) {
+  return (
+    <>
+      <NextSeo
+        title={product.title}
+        description={product.body}
+        canonical={`${process.env.NEXT_PUBLIC_API_URL}/products/${slugify(product.title)}`}
+        openGraph={{
+          url: `${process.env.NEXT_PUBLIC_API_URL}/products/${slugify(product.title)}`,
+          title: product.title,
+          description: product.body,
+          images: product.images.map((i) => {
+            return {
+              url: i.src,
+              width: i.width,
+              height: i.height,
+              alt: i.alt
+            }
+          })
+        }}
+      />
+      <ProductJsonLd
+        productName={product.title}
+        images={product.images.map((i) => i.src)}
+        description={product.body}
+        brand={product.vendor}
+      />
+    </>
+  )
+}
+function ProductPage({ product }: Props) {
   const router = useRouter()
   const cartStore = useCartStore()
 
@@ -33,6 +64,7 @@ const ProductPage = ({ product }: Props) => {
 
   return (
     <Layout>
+      <ProductHead product={product} />
       <div className="container pt-6 pb-16 lg:py-16">
         <div className="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8">
           <div className="lg:col-span-6 lg:col-start-7">

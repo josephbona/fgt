@@ -4,6 +4,7 @@ import { Product } from "@/types"
 import { Layout } from "@/components/layout"
 import { Offers } from "@/components/offers"
 import { ProductCard } from "@/components/product-card"
+import { NextSeo } from "next-seo"
 
 interface CollectionProps {
   products: Product[]
@@ -12,12 +13,12 @@ interface CollectionProps {
 export default function Home({ products }: CollectionProps) {
   return (
     <Layout>
-      <Head>
-        <title>My Next.js App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <NextSeo
+        title="All Products"
+        description="Our full inventory of high quality plants and trees."
+      />
       <section className="container">
-        <div className="border-b border-gray-200 pt-10 pb-4 mb-4">
+        <div className="mb-4 border-b border-gray-200 pb-4 pt-10">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900">
             All products
           </h1>

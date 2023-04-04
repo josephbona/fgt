@@ -1,4 +1,3 @@
-import Head from "next/head"
 import Link from "next/link"
 import { Product } from "@/types"
 
@@ -14,10 +13,6 @@ interface HomeProps {
 export default function Home({ products }: HomeProps) {
   return (
     <Layout transparentHeader>
-      <Head>
-        <title>My Next.js App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Hero products={products} />
       <Offers />
       <section className="container py-16">
