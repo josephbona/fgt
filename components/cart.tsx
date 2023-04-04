@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { FREE_SHIPPING_THRESHOLD } from "@/lib/constants"
 import Link from "next/link"
+import { PlusCircle } from "lucide-react"
 
 export function FreeShippingProgress({ value = 0 }: { value: number }) {
   const amountRemaining = FREE_SHIPPING_THRESHOLD - value
@@ -111,8 +112,8 @@ export function CartUpsell({ product }: { product: Product }) {
         <h3 className="font-medium text-gray-900">
           <Link href={`/products/${slugify(product.title)}`}>{product.title}</Link>
         </h3>
-        <Button size="sm" onClick={() => handleAddUpsell(product)}>Add</Button>
       </div>
+      <Button size="xs" onClick={() => handleAddUpsell(product)}><PlusCircle className="w-4 h-4 mr-2" />Add</Button>
     </li>
   )
 }
@@ -121,6 +122,7 @@ export function CartUpsells({ products }: { products: Product[] }) {
   const cartStore = useCartStore()
   const filteredProducts = filterUpsells({ upsells: products, lineItems: cartStore.lineItems })
 
+  if (!filteredProducts.length) return null
   return (
     <div className="px-4">
       <h3 className="text-base font-semibold text-slate-900 mb-2">Recommended for you:</h3>

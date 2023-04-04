@@ -22,41 +22,43 @@ export const useCartStore = create<CartStore>()(
         const existingLineItem = get().lineItems.find(
           (item) => item.product.id === lineItem.product.id
         )
+        const itemQuantity = Number(lineItem.quantity);
+        const itemPrice = Number(lineItem.product.price);
+      
         if (existingLineItem) {
           set((state) => ({
             lineItems: state.lineItems.map((item) =>
               item.product.id === existingLineItem.product.id
                 ? {
                     ...item,
-                    quantity: Number(item.quantity) + Number(lineItem.quantity),
+                    quantity: Number(item.quantity) + itemQuantity,
                   }
                 : item
             ),
-            total:
-              state.total +
-              existingLineItem.product.price * Number(lineItem.quantity),
+            total: Math.round(
+              (state.total +
+                existingLineItem.product.price * itemQuantity) * 100
+            ) / 100,
           }))
         } else {
           set((state) => ({
             lineItems: [...state.lineItems, lineItem],
-            total:
-              state.total + lineItem.product.price * Number(lineItem.quantity),
+            total: Math.round((state.total + itemPrice * itemQuantity) * 100) / 100,
           }))
         }
       },
       removeFromCart: (productId) => {
+        const lineItem = get().lineItems.find(
+          (item) => item.product.id === productId
+        );
+        const itemQuantity = Number(lineItem?.quantity) || 0;
+        const itemPrice = Number(lineItem?.product.price) || 0;
+      
         set((state) => ({
           lineItems: state.lineItems.filter(
             (item) => item.product.id !== productId
           ),
-          total:
-            state.total -
-            get().lineItems.find((item) => item.product.id === productId)
-              ?.product.price *
-              Number(
-                get().lineItems.find((item) => item.product.id === productId)
-                  ?.quantity
-              ),
+          total: Math.round((state.total - itemPrice * itemQuantity) * 100) / 100,
         }))
       },
     }),
